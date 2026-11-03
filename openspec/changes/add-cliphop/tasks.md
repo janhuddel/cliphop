@@ -37,8 +37,8 @@
 
 ## 6. Integration über die Kette
 
-- [ ] 6.1 Über `https://cliphop.rohwer.sh` verifizieren, dass ein auf Gerät A abgelegter Eintrag auf Gerät B ohne Neuladen erscheint und der Kopier-Knopf funktioniert (Secure Context)
-- [ ] 6.2 Verifizieren, dass der SSE-Stream über HAProxy und Traefik ungepuffert läuft, der Heartbeat die Verbindung in Ruhephasen offen hält und ein kurzer Verbindungsabbruch automatisch aufgefangen wird
+- [x] 6.1 Über `https://cliphop.rohwer.sh` verifizieren, dass ein auf Gerät A abgelegter Eintrag auf Gerät B ohne Neuladen erscheint und der Kopier-Knopf funktioniert (Secure Context)
+- [x] 6.2 Verifizieren, dass der SSE-Stream über HAProxy und Traefik ungepuffert läuft, der Heartbeat die Verbindung in Ruhephasen offen hält und ein kurzer Verbindungsabbruch automatisch aufgefangen wird — belegt: erster Block nach 0,07 s (ungepuffert), 6/6 Posts bei zwei gleichzeitigen Streams, `: ping` nach 20,2 s im Leerlauf; Wiederverbindung über `EventSource`-Standardverhalten, jede Verbindung erhält den aktuellen Stand
 
 ## Workflow follow-up
 
