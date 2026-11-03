@@ -50,6 +50,12 @@ uv run pytest
 Lokal ohne Docker: `CLIPHOP_DB` auf einen beschreibbaren Pfad setzen (die
 Vorgabe `/data/…` existiert außerhalb des Containers nicht).
 
+## Kurzbefehl am iPhone
+
+Markierten Text aus jeder App direkt ablegen: Die Schritt-für-Schritt-
+Einrichtung eines iOS-Kurzbefehls für das Teilen-Menü steht in
+[`docs/SHORTCUTS.md`](docs/SHORTCUTS.md).
+
 ## Hinweis zum Kopier-Knopf
 
 Der Knopf nutzt die Clipboard-API des Browsers. Die funktioniert nur im

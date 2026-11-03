@@ -34,6 +34,40 @@ def test_static_assets_served():
     assert client.get("/static/favicon.svg").status_code == 200
 
 
+def test_manifest_served():
+    client, _, _ = build_client()
+    response = client.get("/static/manifest.webmanifest")
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["scope"] == "/"
+    assert payload["start_url"] == "/"
+    assert payload["display"] == "standalone"
+    assert {icon["sizes"] for icon in payload["icons"]} == {"180x180", "512x512"}
+
+
+def test_index_links_manifest_and_icons():
+    client, _, _ = build_client()
+    body = client.get("/").text
+    assert 'rel="manifest" href="/static/manifest.webmanifest"' in body
+    assert 'rel="apple-touch-icon"' in body
+    assert "/static/icon-180.png" in body
+    assert 'name="theme-color"' in body
+    assert 'name="apple-mobile-web-app-capable" content="yes"' in body
+    assert 'name="apple-mobile-web-app-status-bar-style"' in body
+
+
+def test_index_viewport_fit_cover():
+    client, _, _ = build_client()
+    assert 'name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"' in client.get("/").text
+
+
+def test_style_respects_safe_areas():
+    client, _, _ = build_client()
+    body = client.get("/static/style.css").text
+    for inset in ("top", "right", "bottom", "left"):
+        assert f"env(safe-area-inset-{inset})" in body
+
+
 def test_favicon_ico_served():
     client, _, _ = build_client()
     response = client.get("/favicon.ico")

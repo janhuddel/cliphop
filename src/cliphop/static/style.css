@@ -28,7 +28,12 @@
 body {
   margin: 0 auto;
   max-width: 720px;
+  /* Fallback für Umgebungen ohne env(); darunter die Variante mit Safe-Areas. */
   padding: 1.5rem 1rem 4rem;
+  padding: calc(1.5rem + env(safe-area-inset-top))
+    calc(1rem + env(safe-area-inset-right))
+    calc(4rem + env(safe-area-inset-bottom))
+    calc(1rem + env(safe-area-inset-left));
   background: var(--bg);
   color: var(--fg);
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
