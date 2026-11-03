@@ -28,6 +28,7 @@ Python 3.12 via `uv`; FastAPI + Jinja2 + HTMX + SQLite; ein Container, genau
 ```sh
 uv sync
 uv run pytest
+uv run python scripts/bump_version.py <version>   # setzt die Version überall und ruft `uv lock`
 CLIPHOP_DB=./data/cliphop.db uv run uvicorn cliphop.app:create_app --factory --reload
 docker build --build-arg VERSION=<version> -t oci.rohwer.sh/cliphop:<version> .
 ```
@@ -48,8 +49,13 @@ docker build --build-arg VERSION=<version> -t oci.rohwer.sh/cliphop:<version> .
   `localhost`); sonst greift ein Fallback ohne Zwischenablage.
 - **Templates** lädt Jinja bei jeder Anfrage neu — UI-Änderungen sind ohne
   Neustart sichtbar. Statische Assets (inkl. HTMX) liegen lokal, kein CDN.
-- **Version** steht an drei Stellen zusammen: `pyproject.toml`, Dockerfile
-  (`ARG VERSION`) und der Tag in `compose.yaml`.
+- **Version.** Kanonisch ist `pyproject.toml`. Dieselbe Version tragen außerdem
+  `Dockerfile` (`ARG VERSION`), `compose.yaml` (Image-Tag),
+  `src/cliphop/__init__.py` (`__version__`), die beiden Beispielbefehle in
+  `docs/DEPLOYMENT.md` und `uv.lock`. Alle Stellen gemeinsam setzen:
+  `uv run python scripts/bump_version.py <version>` (ruft danach `uv lock`);
+  `uv run python scripts/bump_version.py --check` (läuft auch in `uv run pytest`)
+  schlägt bei jeder Abweichung fehl.
 
 ## Deployment
 

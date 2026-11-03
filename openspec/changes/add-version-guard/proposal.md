@@ -5,8 +5,9 @@
 Die Versionsnummer steht in diesem Projekt an mehreren Stellen, wird aber nirgends
 zusammengehalten: Es gibt keine Prüfung und keinen Befehl, der sie gemeinsam setzt.
 Beim Sprung auf 1.0.3 sind genau deshalb `src/cliphop/__init__.py` und
-`docs/DEPLOYMENT.md` zunächst übersehen worden, und `AGENTS.md` nennt fälschlich nur
-drei Stellen. Ohne Absicherung wiederholt sich das beim nächsten Bump.
+`docs/DEPLOYMENT.md` zunächst übersehen worden; außerdem nennen `AGENTS.md` und die
+Prosa in `docs/DEPLOYMENT.md` fälschlich nur drei Stellen. Ohne Absicherung
+wiederholt sich das beim nächsten Bump.
 
 ## What Changes
 
@@ -15,8 +16,8 @@ drei Stellen. Ohne Absicherung wiederholt sich das beim nächsten Bump.
   Abweichungen, ohne etwas zu schreiben.
 - **Neu:** ein Test, der `--check` ausführt, sodass jede Abweichung bei
   `uv run pytest` auffällt.
-- **Geändert:** `AGENTS.md` nennt die tatsächlichen Stellen und den Bump-Befehl
-  statt „drei Stellen".
+- **Geändert:** `AGENTS.md` und `docs/DEPLOYMENT.md` nennen die tatsächlichen
+  Stellen und den Bump-Befehl statt „drei Stellen".
 
 ## Capabilities
 
@@ -32,6 +33,7 @@ drei Stellen. Ohne Absicherung wiederholt sich das beim nächsten Bump.
 ## Impact
 
 - **Neu:** `scripts/bump_version.py`, `tests/test_version.py`.
-- **Geändert:** `AGENTS.md` (Dokumentation der Versionsstellen und des Befehls).
+- **Geändert:** `AGENTS.md` und `docs/DEPLOYMENT.md` (Dokumentation der
+  Versionsstellen und des Befehls).
 - **Unverändert:** Anwendungsverhalten, Endpunkte, Datenmodell, Abhängigkeiten,
   Container, Proxy-Kette.

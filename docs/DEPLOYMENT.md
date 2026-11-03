@@ -13,9 +13,13 @@ Der Hostname `cliphop.rohwer.sh` löst per Split-Horizon-DNS nur im LAN auf.
    docker push oci.rohwer.sh/cliphop:1.0.3
    ```
 
-   Die Version steht in `pyproject.toml`, wird beim Bauen als
-   `org.opencontainers.image.version` ins Image geschrieben und im Compose-
-   Service als Tag verwendet — beim Versionssprung alle drei Stellen anpassen.
+   Die Version steht kanonisch in `pyproject.toml` und wird über
+   `uv run python scripts/bump_version.py <version>` an allen Stellen gesetzt
+   (u. a. `Dockerfile`, `compose.yaml`, `src/cliphop/__init__.py`, die Beispiele
+   hier und `uv.lock`). Beim Bauen landet sie als
+   `org.opencontainers.image.version` im Image und dient im Compose-Service als
+   Tag; `uv run python scripts/bump_version.py --check` (bzw. `uv run pytest`)
+   meldet jede Abweichung.
 
 2. Den Service aus [`compose.yaml`](../compose.yaml) in den bestehenden Stack
    übernehmen und starten.

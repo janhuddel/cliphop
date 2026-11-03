@@ -8,7 +8,8 @@ Siehe `proposal.md` — Why. Bestand, auf dem aufgesetzt wird:
   `Dockerfile` (`ARG VERSION`), `compose.yaml` (Image-Tag),
   `src/cliphop/__init__.py` (`__version__`), `docs/DEPLOYMENT.md` (zwei
   Beispielbefehle) und `uv.lock` (abgeleitet).
-- `AGENTS.md` behauptet „drei Stellen" und nennt nur drei.
+- `AGENTS.md` und die Prosa in `docs/DEPLOYMENT.md` behaupten „drei Stellen"
+  und nennen nur drei.
 - Es gibt **kein CI, kein Makefile/justfile, keine Skripte**. Tests laufen über
   `uv run pytest` und liegen in `tests/` (z. B. `tests/test_api.py`).
 - `pyproject.toml` speist die Paket-Metadaten; `uv lock` leitet daraus die
@@ -61,10 +62,11 @@ sie; so fällt auf, wenn nach einem manuellen Bump `uv lock` vergessen wurde.
 Die beiden Beispielbefehle tragen die konkrete Version; sie werden mitgesetzt
 und mitgeprüft, damit die dokumentierte Anleitung nicht veraltet.
 
-**6. `AGENTS.md` wird richtiggestellt.**
+**6. `AGENTS.md` und `docs/DEPLOYMENT.md` werden richtiggestellt.**
 Statt „drei Stellen" die tatsächlichen Stellen nennen, dazu den Bump-Befehl
 (`uv run python scripts/bump_version.py <version>`) und den Prüflauf
-(`uv run pytest`).
+(`uv run pytest`). In `docs/DEPLOYMENT.md` betrifft das die Prosa neben den
+Beispielbefehlen, nicht die Versionsnummern selbst.
 
 ## Risks / Trade-offs
 
