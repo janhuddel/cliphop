@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager, suppress
 from pathlib import Path
 
 from fastapi import FastAPI, Form, HTTPException, Request
-from fastapi.responses import HTMLResponse, PlainTextResponse, StreamingResponse
+from fastapi.responses import FileResponse, HTMLResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
 from .config import Config
@@ -100,6 +100,11 @@ def create_app(
     @app.get("/health")
     def health() -> PlainTextResponse:
         return PlainTextResponse("ok")
+
+    @app.get("/favicon.ico", include_in_schema=False)
+    def favicon() -> FileResponse:
+        # Browser fragen /favicon.ico auch ohne Link-Tag an; hier dasselbe SVG liefern.
+        return FileResponse(STATIC_DIR / "favicon.svg", media_type="image/svg+xml")
 
     @app.get("/", response_class=HTMLResponse)
     def index() -> HTMLResponse:

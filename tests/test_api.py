@@ -31,6 +31,20 @@ def test_static_assets_served():
     client, _, _ = build_client()
     assert client.get("/static/app.js").status_code == 200
     assert client.get("/static/htmx.min.js").status_code == 200
+    assert client.get("/static/favicon.svg").status_code == 200
+
+
+def test_favicon_ico_served():
+    client, _, _ = build_client()
+    response = client.get("/favicon.ico")
+    assert response.status_code == 200
+    assert response.headers["content-type"].startswith("image/svg+xml")
+
+
+def test_index_links_favicon():
+    client, _, _ = build_client()
+    assert 'rel="icon"' in client.get("/").text
+    assert "/static/favicon.svg" in client.get("/").text
 
 
 def test_index_empty_state():
