@@ -6,14 +6,19 @@ Der Hostname `cliphop.rohwer.sh` löst per Split-Horizon-DNS nur im LAN auf.
 
 ## Schritte
 
-1. Image bauen und bereitstellen:
+1. Image bauen und in die Registry schieben:
 
    ```sh
-   docker build -t cliphop:<version> .
+   docker build --build-arg VERSION=1.0.0 -t oci.rohwer.sh/cliphop:1.0.0 .
+   docker push oci.rohwer.sh/cliphop:1.0.0
    ```
 
+   Die Version steht in `pyproject.toml`, wird beim Bauen als
+   `org.opencontainers.image.version` ins Image geschrieben und im Compose-
+   Service als Tag verwendet — beim Versionssprung alle drei Stellen anpassen.
+
 2. Den Service aus [`compose.yaml`](../compose.yaml) in den bestehenden Stack
-   übernehmen (Bauen durch das fertige Image ersetzen) und starten.
+   übernehmen und starten.
 
 3. Prüfen, dass der Container gesund ist:
 

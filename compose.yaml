@@ -4,8 +4,7 @@ name: cliphop
 
 services:
   cliphop:
-    build: .
-    image: cliphop:dev
+    image: oci.rohwer.sh/cliphop:1.0.0
     restart: unless-stopped
     environment:
       CLIPHOP_TTL: 24h
