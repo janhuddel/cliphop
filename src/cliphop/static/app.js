@@ -5,8 +5,15 @@
 
   // Live-Updates: der Server schickt beim Verbinden den aktuellen Stand und
   // danach jede Aenderung. EventSource verbindet sich selbst neu.
-  if (list && window.EventSource) {
-    var source = new EventSource("/events");
+  var source = null;
+
+  // Aufbau und Neuaufbau des Kanals an einer Stelle: eine bestehende Verbindung
+  // wird zuvor geschlossen, damit nie zwei Kanaele nebeneinander bestehen.
+  function connect() {
+    if (source) {
+      source.close();
+    }
+    source = new EventSource("/events");
     source.onmessage = function (event) {
       list.innerHTML = event.data;
       // htmx verarbeitet per innerHTML eingefuegtes Markup nicht von selbst;
@@ -16,6 +23,28 @@
       }
     };
   }
+
+  if (list && window.EventSource) {
+    connect();
+
+    // Beim Zurueckkehren in den Vordergrund sofort neu verbinden, statt auf den
+    // traegen Auto-Reconnect zu warten: der Server schickt beim Verbinden den
+    // aktuellen Stand, der damit unmittelbar erscheint.
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "visible") {
+        connect();
+      }
+    });
+  }
+
+  // Wird die Seite aus dem Back/Forward-Cache wiederhergestellt, kommt sie samt
+  // DOM zurueck; dann ist ein Neuladen richtig. Nur in diesem Fall, damit
+  // normales Laden kein zusaetzliches Neuladen ausloest.
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
 
   // Leerer Text kommt als 400 zurueck; den Ausschnitt trotzdem in die Liste tauschen,
   // damit der Hinweis sichtbar wird.

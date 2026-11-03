@@ -108,7 +108,12 @@ def create_app(
 
     @app.get("/", response_class=HTMLResponse)
     def index() -> HTMLResponse:
-        return HTMLResponse(render_page(store.list_items()))
+        # Kein Zwischenspeichern der Seite: eine zwischengespeicherte Kopie
+        # koennte beim Start einen veralteten Stand zeigen.
+        return HTMLResponse(
+            render_page(store.list_items()),
+            headers={"Cache-Control": "no-store"},
+        )
 
     @app.post("/notes", response_class=HTMLResponse)
     async def add_note(content: str = Form("")) -> HTMLResponse:

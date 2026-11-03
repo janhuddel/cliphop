@@ -81,6 +81,12 @@ def test_index_links_favicon():
     assert "/static/favicon.svg" in client.get("/").text
 
 
+def test_index_is_not_cached():
+    client, _, _ = build_client()
+    response = client.get("/")
+    assert response.headers["cache-control"] == "no-store"
+
+
 def test_index_empty_state():
     client, _, _ = build_client()
     response = client.get("/")
