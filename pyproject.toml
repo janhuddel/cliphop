@@ -1,6 +1,6 @@
 [project]
 name = "cliphop"
-version = "1.0.1"
+version = "1.0.3"
 description = "Kurze Textnotizen zwischen Geräten im Heimnetz austauschen"
 readme = "README.md"
 requires-python = ">=3.12"

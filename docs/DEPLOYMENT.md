@@ -9,8 +9,8 @@ Der Hostname `cliphop.rohwer.sh` löst per Split-Horizon-DNS nur im LAN auf.
 1. Image bauen und in die Registry schieben:
 
    ```sh
-   docker build --build-arg VERSION=1.0.1 -t oci.rohwer.sh/cliphop:1.0.1 .
-   docker push oci.rohwer.sh/cliphop:1.0.1
+   docker build --build-arg VERSION=1.0.3 -t oci.rohwer.sh/cliphop:1.0.3 .
+   docker push oci.rohwer.sh/cliphop:1.0.3
    ```
 
    Die Version steht in `pyproject.toml`, wird beim Bauen als
