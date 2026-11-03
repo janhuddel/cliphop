@@ -1,0 +1,25 @@
+{% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+{% if items %}
+<ol class="notes">
+  {% for item in items %}
+  <li class="note{% if loop.first %} slot{% endif %}{% if item.pinned %} pinned{% endif %}">
+    <div class="note-head">
+      {% if loop.first %}<span class="badge badge-slot">aktuell</span>{% endif %}
+      {% if item.pinned %}<span class="badge badge-pin">gepinnt</span>{% endif %}
+    </div>
+    <pre class="content">{{ item.content }}</pre>
+    <div class="actions">
+      <button type="button" class="copy" data-copy="{{ item.content }}">Kopieren</button>
+      <button type="button" hx-patch="/notes/{{ item.id }}" hx-target="#list" hx-swap="innerHTML">
+        {{ "Loslösen" if item.pinned else "Anpinnen" }}
+      </button>
+      <button type="button" hx-delete="/notes/{{ item.id }}" hx-target="#list" hx-swap="innerHTML">
+        Löschen
+      </button>
+    </div>
+  </li>
+  {% endfor %}
+</ol>
+{% else %}
+<p class="empty">Noch keine Einträge — leg oben den ersten Text ab.</p>
+{% endif %}

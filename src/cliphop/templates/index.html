@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cliphop</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/htmx.min.js"></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>cliphop</h1>
+    <p class="tagline">Kurze Notizen zwischen deinen Geräten</p>
+  </header>
+
+  <main>
+    <form class="note-form" hx-post="/notes" hx-target="#list" hx-swap="innerHTML"
+          hx-on::after-request="if (event.detail.xhr.status === 200) this.reset()">
+      <textarea name="content" rows="3" placeholder="Text hier ablegen …" autofocus></textarea>
+      <button type="submit">Ablegen</button>
+    </form>
+
+    <div class="list-head">
+      <h2>Liste</h2>
+      <button type="button" id="clear-open" class="danger">Alles leeren</button>
+    </div>
+
+    <section id="list" aria-live="polite">
+      {% include "_list.html" %}
+    </section>
+  </main>
+
+  <dialog id="clear-dialog">
+    <form hx-post="/notes/clear" hx-target="#list" hx-swap="innerHTML" id="clear-form">
+      <p>Ungepinnte Einträge löschen?</p>
+      <label class="checkbox">
+        <input type="checkbox" name="include_pinned" value="true">
+        auch gepinnte Texte
+      </label>
+      <menu>
+        <button type="button" id="clear-cancel">Abbrechen</button>
+        <button type="submit" class="danger">Löschen</button>
+      </menu>
+    </form>
+  </dialog>
+</body>
+</html>

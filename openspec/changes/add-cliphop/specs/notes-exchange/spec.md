@@ -28,6 +28,10 @@ Die Anwendung SHALL das Ablegen eines neuen Eintrags mit reinem Text erlauben. E
 - **WHEN** der abzulegende Text leer ist oder nur aus Leerraum besteht
 - **THEN** wird kein Eintrag angelegt und der Nutzer erhält einen Hinweis
 
+#### Scenario: Eingabefeld wird geleert
+- **WHEN** ein Nutzer einen Text erfolgreich ablegt
+- **THEN** ist das Eingabefeld danach leer; wird der Text abgelehnt, bleibt die Eingabe erhalten
+
 ### Requirement: Einträge sind unveränderlich
 Ein gespeicherter Eintrag SHALL nach dem Anlegen nicht mehr verändert werden können.
 
