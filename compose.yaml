@@ -12,6 +12,8 @@ services:
       CLIPHOP_DB: /data/cliphop.db
       BASE_URL: https://cliphop.rohwer.sh
     volumes:
+      # Lokales Docker-Volume, bewusst KEIN NFS-Bind-Mount: SQLite braucht
+      # zuverlaessige Dateilocks (WAL). Siehe docs/DEPLOYMENT.md.
       - cliphop-data:/data
     healthcheck:
       test:
@@ -30,4 +32,5 @@ services:
       # Bewusst keine compress-/buffering-Middleware auf diesem Router (SSE, siehe docs/DEPLOYMENT.md).
 
 volumes:
+  # Liegt auf der lokalen Platte des Docker-Hosts, nicht auf dem NFS-Mount.
   cliphop-data:

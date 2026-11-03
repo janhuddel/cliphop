@@ -42,7 +42,13 @@ relativ). Sie steht bereit, sobald Authentifizierung dazukommt.
 
 ## Volume und Backup
 
-Die SQLite-Datei liegt auf dem Volume `cliphop-data` unter `/data`. Ein Backup
+Die SQLite-Datei liegt auf dem Volume `cliphop-data` unter `/data`. Das ist ein
+**lokales** Docker-Volume und bewusst **kein NFS-Mount**: SQLite braucht
+zuverlässige Dateilocks, und der WAL-Modus zusätzlich funktionierendes
+Shared-Memory-`mmap` — beides ist über NFS unsicher. Der NFS-Speicher sollte nur
+fürs Backup dienen, nicht für die Live-Datenbank.
+
+Ein Backup
 ist das Kopieren von `cliphop.db` (im laufenden Betrieb mit
 `sqlite3 cliphop.db ".backup …"` oder im Stillstand per Dateikopie). Es gibt
 keinen weiteren Zustand.
